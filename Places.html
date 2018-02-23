@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="stylesheet" href="groovymovie.css">
+   <style media="screen">
+      #map{
+        height: 400px;
+        width:100%;
+      }
+   </style>
+  <title>Groovy Movie- Locations</title>
+  <link href="https://fonts.googleapis.com/css?family=Anton|Arimo|BioRhyme+Expanded|Cinzel|Indie+Flower|Kavivanar|Lobster+Two|Mukta+Mahee|Nanum+Pen+Script|Open+Sans|Orbitron|Oswald|Roboto|Roboto+Mono|Slabo+27px" rel="stylesheet">
+</head>
+<header>
+  <div class="wrapper">
+      <img src="http://www.groovymovie.biz/groovymovie/Welcome_files/Front-sign-dropshadow-medium.png" alt="Groovy movie logo" width="600" />
+  </div>
+</header>
+<div class="wrapper">
+  <nav>
+  <ul>
+    <li><a href="groovymovie.html">Home</a></li>
+    <li>
+      <a href="places.html">Locations and Movie Times <span class="caret"></span></a>
+      <div>
+        <ul>
+          <li><a href="places.html">Movie Theatres</a></li>
+          <li><a href= "https://www.fandango.com/denver_co_movietimes?mode=general&q=Denver%2c+Co" target="_blank">Movie Times</a></li>
+        </ul>
+      </div>
+    </li>
+    <li><a href="movie.html">Movie Reviews</a></li>
+    <li><a href="help.html">Help</a></li>
+  </ul>
+</nav>
+</div>
+  <body>
+    <h1><u>Locations of Movie Theatres</u></h1>
+    <div id="map"></div>
+    <script>
+      function initMap(){
+        //Map options
+        var options= {
+          zoom:9,
+          center:{lat: 39.747850, lng: -104.889996 }
+        }
+
+        //New Map
+        var map = new
+        google.maps.Map(document.getElementById('map'),options);
+
+        /*
+        //Add Marker (Originally 1 marker)
+        var marker = new google.maps.Marker({
+          position: {lat:39.780435 ,lng:-104.891946},
+          map:map,
+          icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content:'<h1>Harkins Northfield 18</h1>'
+        });
+
+        marker.addListener('click', function(){
+          infoWindow.open(map, marker);
+      });
+      */
+
+      /* USE OF addMarker NO LONGER NEEDED BELOW
+      //Tons more Markers in an array- no addMarker
+      addMarker({
+        coords:{lat:39.780435 ,lng:-104.891946},
+        iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        content:'<h1>HARKINS NORTHFIELD 18</h1> <h2>8300 E. Northfield Blvd., Denver, CO 80238</h2>'
+      });
+      addMarker({
+        coords:{lat:39.650874 ,lng:-104.916071},
+        iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+      });
+      addMarker({
+        coords:{lat:39.742854 ,lng:-104.990528},
+        iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+      });
+    */
+
+
+      //Array of Markers
+      var markers= [
+        {
+          coords:{lat:39.780435 ,lng:-104.891946},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>HARKINS NORTHFIELD 18</h1> <h2>8300 E. Northfield Blvd., Denver, CO 80238</h2>'
+        },
+
+        {
+          coords:{lat:39.650874 ,lng:-104.916071},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>UA DENVER PAVILIONS STADIUM 15 & RPX</h1> <h2>500 16th St., Denver, CO 80202</h2>'
+        },
+
+        {
+          coords:{lat:39.742854 ,lng:-104.990528},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>REGAL CONTINENTAL STADIUM 10 & RPX</h1> <h2>3635 S. Monaco Pkwy. Denver, CO 80237</h2>'
+        },
+
+        {
+          coords:{lat:39.651381 ,lng:-104.900710},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>ELVIS CINEMAS TIFFANY PLAZA</h1> <h2>7400 E. Hampden Ave, Denver, CO 80231</h2>'
+        },
+
+        {
+          coords:{lat:39.681014 ,lng:-104.939414},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>UA COLORADO CENTER STADIUM 9 & IMAX</h1> <h2>2000 S. Colorado Blvd., Denver, CO 80222</h2>'
+        },
+
+        {
+          coords:{lat: 39.930339 ,lng:-105.135549},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>AMC FLATIRON CROSSING 14</h1> <h2>61 West Flatiron Circle, Broomfield, CO 80021</h2>'
+        },
+
+        {
+          coords:{lat:39.708339 ,lng:-105.076272},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>CENTURY 16 BEL MAR AND XD </h1> <h2>S. Teller and W. Alameda Ave., Lakewood, CO 80226</h2>'
+        },
+
+        {
+          coords:{lat:38.994187 ,lng:-104.810711},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>REGAL INTERQUEST STADIUM 14 & RPX</h1> <h2>1120 Interquest Parkway, Colorado Springs, CO 80920</h2>'
+        },
+
+        {
+          coords:{lat:39.596160 ,lng:-104.797449},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>AMC ARAPAHOE CROSSING 16</h1> <h2>6696 South Parker Road, Aurora, CO 80016</h2>'
+        },
+
+        {
+          coords:{lat:39.402220 ,lng:-104.879820},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>AMC CASTLE ROCK 12</h1> <h2>3960 Limelight Avenue, Castle Rock, CO 80109</h2>'
+        },
+
+        {
+          coords:{lat:37.976344 ,lng:-100.852868},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>SEQUOYA 8</h1> <h2>1118 Fleming, Garden City, KS 67846</h2>'
+        },
+
+        {
+          coords:{lat:38.921604 ,lng:-95.263056},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>REGAL SOUTHWIND STADIUM 12</h1> <h2>3433 Iowa Street, Lawrence, KS 66046</h2>'
+        },
+
+        {
+          coords:{lat:37.783843 ,lng:-122.405845},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>CENTURY SAN FRANCISCO CENTRE 9 AND XD</h1> <h2></h2>'
+        },
+
+        {
+          coords:{lat:41.527282 ,lng:-73.894486},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>REGAL FISHKILL 10 </h1> <h2>18 Westage Business Center, Fishkill, NY 12524</h2>'
+        },
+
+        {
+          coords:{lat:52.509651 ,lng:13.373575},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>Arsenal - Institute for Film and Video Art E.V</h1> <h2>Potsdamer Straße 2, 10785 Berlin, Germany</h2>'
+        },
+
+        {
+          coords:{lat:-12.085304 ,lng:-76.975528},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>Cinemark Jockey Plaza</h1> <h2>Centro Comercial Jockey Plaza, Av. Javier Prado Este 4200, Santiago de Surco 15023, Peru</h2>'
+        },
+
+        {
+          coords:{lat:35.695415 ,lng:139.702055},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1>TOHO Cinemas Shinjuku</h1> <h2>Japan, 〒160-0021 Tokyo, Shinjuku, Kabukicho, 1−19−1 新宿東宝ビル</h2>'
+        },
+        //To Add more locations to the above Array:look BELOW
+        /*
+        {
+          coords:{lat: ,lng:},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h1></h1> <h2></h2>'
+        },
+      */
+
+      ];
+
+      //Loop through Markers
+      for (var i = 0;i < markers.length; i++) {
+        addMarker(markers[i]);
+      }
+
+
+      //Add Marker Function
+       function addMarker(props){
+         var marker = new google.maps.Marker({
+           position: props.coords,
+           map:map,
+           icon:props.iconImage
+           //icon:props.iconImage
+         });
+
+         //Check for Customicon
+         if (props.iconImage) {
+           //Set icon image
+           marker.setIcon(props.iconImage);
+         }
+
+         //Check content
+         if(props.content){
+           var infoWindow = new google.maps.InfoWindow({
+             content:props.content
+           });
+
+           marker.addListener('click', function(){
+             infoWindow.open(map, marker);
+         });
+         }
+       }
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS7UYxs8xZ4ckZ-ZAdm5yS2N5jHHNRNd0&callback=initMap"
+  type="text/javascript"></script>
+ <div class="wrapper">
+   <h3>(Zoom out to see the many Movie Groovy participating theatres world wide!)</h3>
+   <h2>Click on the flags on the map to see many of the participating theatre names and their locations!</h2>
+ </div>
+</body>
+  <footer><div class="wrapper">
+    <h2><b>Groovy Movie LLC Copyright (c) 2018 Copyright Holder All Rights Reserved.</b></h2>
+  </div></footer>
+</html>
